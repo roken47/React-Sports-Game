@@ -27,15 +27,52 @@
 
     <!-- include our JS+JSX for the React Application -->
     <script type="text/babel">
+    // Team component: "state"ful function, it needs to display Shots taken and Score with identification by logo and name.
+    // Props: team name, logo, shots taken, score
+    let teamA = "Team A";
+    let teamB = "Team B";
+    class Team extends React.Component {
+      constructor(props) {
+        super(props);
+
+        this.state = {
+          team: undefined,
+        }
+      }
+      startingTeam = (event) => {
+        this.setState((state, props) => {
+          if (Math.random() > 0.5) {
+            return state.team = teamA;
+          } else {return state.team = teamB}
+        }
+        )}
+        render() {
+          let stateVisibility = (this.state.team === undefined ? {visibility: "visible"} : {visibility: "hidden"})
+          let teamPicked = (this.state.team ==! undefined ? {visibility: "visible"} : {visibility: "hidden"})
+          return (
+            <div>
+              <button onClick={this.startingTeam} style={stateVisibility}>START</button>
+              <div>
+                <p style={teamPicked}>
+                  {this.state.team} shoots first!
+                </p>
+              </div>
+            </div>
+
+          )
+        }
+    }
+    
       // An App component under which all other components will be added
       function App(props) {
         return (
           <div>
-            <h1>Welcome to the Sports Game starter!</h1>
+            <h1>Welcome to the Sports Game!</h1>
             <em>
               This file represents the way your code should look after
               completing the <strong>Setup</strong> steps in the instructions.
-            </em>
+            </em> <br />
+            <Team />
           </div>
         );
       }
