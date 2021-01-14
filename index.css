@@ -4,6 +4,7 @@ body {
     background-image: url("https://www.esl-one.com/archive/www.esl-one.com/uploads/pics/20160710_Patrick-Strack_ESLOneCologne16_070A4536.jpg");
     background-size: cover;
     background-position: top;
+    background-repeat: no-repeat;
     
 }
 #welcome {
@@ -11,6 +12,7 @@ body {
     justify-content: center;
     align-items: center;
     text-shadow: 2px 2px white;
+    background-color: blue;
 }
 .teams {
     size: 4rem;
@@ -31,4 +33,9 @@ span {
     color: white;
     margin-left: 15px;
     padding: 2px;
+    align-items: flex-end;
+}
+button {
+    height: 50px;
+    width: 100%;
 }
