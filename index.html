@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="game.css">
     <title>React Sports Game</title>
   </head>
   <body>
@@ -29,56 +30,57 @@
     <script type="text/babel">
     // Team component: "state"ful function, it needs to display Shots taken and Score with identification by logo and name.
     // Props: team name, logo, shots taken, score
-    let teamA = "Team A";
-    let teamB = "Team B";
     class Team extends React.Component {
       constructor(props) {
         super(props);
 
         this.state = {
-          team: undefined,
+          score: 0,
+          count: 0
         }
+       
       }
-      startingTeam = (event) => {
-        this.setState((state, props) => {
-          if (Math.random() > 0.5) {
-            return state.team = teamA;
-          } else {return state.team = teamB}
-        }
-        )}
+      handleScore = (newScore, newCount) => {
+          this.setState((state, props) => {
+            if(Math.random() > 0.5) {
+              return (state.score + newScore,
+                      state.count + newCount)
+            }
+          })
+      }
         render() {
-          let stateVisibility = (this.state.team === undefined ? {visibility: "visible"} : {visibility: "hidden"})
-          let teamPicked = (this.state.team ==! undefined ? {visibility: "visible"} : {visibility: "hidden"})
           return (
-            <div>
-              <button onClick={this.startingTeam} style={stateVisibility}>START</button>
-              <div>
-                <p style={teamPicked}>
-                  {this.state.team} shoots first!
-                </p>
-              </div>
+           <div> 
+           <h3>{this.props.name}</h3>
+           <img src={this.props.logo} height="100px" />
+           <br />
+           <label>Score: </label><span>{this.state.score}</span><br />
+           <label>Shots Taken: </label><span>{this.state.count}</span><br />
+           <button onClick={this.handleScore}> Shoot </button>
             </div>
-
           )
         }
     }
     
       // An App component under which all other components will be added
-      function App(props) {
+      function Venue(props) {
+        return (<h1 id="welcome">Welcome to {props.name}!</h1>)
+      }
+      function Game(props) {
         return (
-          <div>
-            <h1>Welcome to the Sports Game!</h1>
-            <em>
-              This file represents the way your code should look after
-              completing the <strong>Setup</strong> steps in the instructions.
-            </em> <br />
-            <Team />
+          <div className="app">
+            <Venue name="Lanxess Arena" />
+            <div className="teams">{homeTeam}<br />
+            {awayTeam}</div>
           </div>
         );
       }
 
+      const homeTeam = <Team name="Fnatic" logo="https://liquipedia.net/commons/images/2/20/Fnatic_2020.png" />
+      const awayTeam = <Team name="Navi" logo="https://liquipedia.net/commons/images/d/d6/Natus_Vincere.png" />
+
       // Render the App
-      ReactDOM.render(<App />, document.getElementById("root"));
+      ReactDOM.render(<Game />, document.getElementById("root"));
     </script>
   </body>
 </html>
