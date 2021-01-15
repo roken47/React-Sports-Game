@@ -45,24 +45,28 @@
       }
       
         // An App component under which all other components will be added
-        class Game extends React.Component {
-          constructor(props) {
-            super(props);
-            this.venue = "Lanxess Arena"
-          }
-          render() {
+        function Game(props) {
           return (
-            <div className="app">
-              <h1 id="welcome">Welcome to {this.venue}!</h1>
-              <div className="teams">{homeTeam}<br />
-              {awayTeam}</div>
+            <div className="Game">
+              <h1 id="welcome">Welcome to {props.venue}!</h1>
+              <div className="teams"><Team name={props.homeTeam.name} logo={props.homeTeam.logo} /><br />
+              <Team name={props.awayTeam.name} logo={props.awayTeam.logo} /></div>
             </div>
           );
-          }
+          
       }
-      // Or could include below inside Game component as <Team blah="" blah="" />
-        const homeTeam = <Team name="Fnatic" logo="./images/Fnatic.png" />
-        const awayTeam = <Team name="Navi" logo="./images/Natus_Vincere.png" />
+      function App(props) {
+        const fnatic = { name:"Fnatic", logo: "./images/Fnatic.png" }
+        const navi = { name: "Navi", logo: "./images/Natus_Vincere.png" }
+          return (
+              <div className="App">
+                  <Game venue="Lanxess Arena"
+                        homeTeam={fnatic}
+                        awayTeam={navi}
+                  />
+              </div>
+          )
+      }
   
         // Render the App
-        ReactDOM.render(<Game />, document.getElementById("root"));
+        ReactDOM.render(<App />, document.getElementById("root"));
